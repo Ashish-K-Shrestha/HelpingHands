@@ -17,7 +17,7 @@ const DEFAULT_CURRENCY = "usd";
 const createInvoice = async (amount) => {
   try {
     const data = {
-      amount: amount.toString(),
+      amount: amount.toString(), 
       currency: DEFAULT_CURRENCY,
       order_id: crypto.randomBytes(12).toString("hex"),
       url_callback: "https://unityfund.onrender.com/api/v1/checkout/callback",
