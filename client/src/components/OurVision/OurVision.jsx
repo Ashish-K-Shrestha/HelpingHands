@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "framer-motion";
 
 const fadeAnimation = (delay) => {
@@ -28,9 +27,7 @@ const OurVision = () => {
         >
           <h1 className="text-xl font-semibold">Our vision</h1>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos
-            quos atque consequuntur magni molestiae distinctio et explicabo
-            maiores qui architecto.
+            HelpingHands aims to become a trusted digital platform that bridges the gap between donors and charitable causes, offering a seamless, transparent, and emotionally engaging donation experience that encourages regular giving and community impact.
           </p>
           <a
             href="#"
@@ -47,9 +44,7 @@ const OurVision = () => {
         >
           <h1 className="text-xl font-semibold">Our vision</h1>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos
-            quos atque consequuntur magni molestiae distinctio et explicabo
-            maiores qui architecto.
+            The vision of HelpingHands is to empower individuals and organizations to create meaningful change by providing a user-friendly, secure, and accessible donation environment where generosity meets real-world needs through technology-driven solutions.
           </p>
           <a
             href="#"

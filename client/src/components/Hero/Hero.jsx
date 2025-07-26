@@ -1,7 +1,8 @@
-import React from "react";
-import HeroImg from "../../assets/image2.jpeg";
-import { motion } from "framer-motion";
 import axios from "axios";
+import { motion } from "framer-motion";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import HeroImg from "../../assets/image2.jpeg";
 
 const bgStyle = {
   backgroundImage: `url(${HeroImg})`,
@@ -18,7 +19,10 @@ const FadeUp = (delay) => {
   };
 };
 
+
+
 const Hero = () => {
+  const navigate = useNavigate();
   const [data, setData] = React.useState({
     name: "",
     email: "",
@@ -71,9 +75,15 @@ const Hero = () => {
                 <motion.button variants={FadeUp(0.6)} initial="initial" animate="animate" className="btn-primary">
                   Get Started
                 </motion.button>
-                <motion.button variants={FadeUp(0.8)} initial="initial" animate="animate" className="btn-outline">
-                  Login
-                </motion.button>
+               <motion.button
+  variants={FadeUp(0.8)}
+  initial="initial"
+  animate="animate"
+  className="btn-outline"
+  onClick={() => navigate("/login")}
+>
+  Login
+</motion.button>
               </div>
             </div>
 

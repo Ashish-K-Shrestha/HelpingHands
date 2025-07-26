@@ -1,23 +1,34 @@
-const express = require("express");
-const cors = require("cors");
 require("dotenv").config();
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+const authRoutes = require("./src/routes/authRoutes"); // fix path if needed
+
 const app = express();
-const helmet = require("helmet");
 
-app.use(cors());
-app.use(express.json());
-app.use(helmet());
+// Middleware
+app.use(cors({
+  origin: "http://localhost:5173",
+  credentials: true,
+}));
+app.use(express.json()); // Must come before routes
 
-// custom modules
-const home = require("./src/routes/home.routes");
-const checkout = require("./src/routes/checkout.routes");
-app.use("/api/v1", home);
-app.use("/api/v1", checkout);
+// Routes
+app.use("/api", authRoutes);
 
+// Root route (optional)
 app.get("/", (req, res) => {
-  res.send("API is working...");
+  res.send("API is running...");
 });
 
-app.listen(process.env.PORT, () => {
-  console.log("Server is running on port 8000");
+// MongoDB connection
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => console.log("MongoDB connected"))
+  .catch((err) => console.error("MongoDB connection error:", err));
+
+// Start server
+const PORT = process.env.PORT || 8091;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
