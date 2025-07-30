@@ -14,7 +14,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:8091/api/login", input);
+      await axios.post("http://localhost:8091/api/login", input);
       alert("Login successful!");
       navigate("/");
     } catch (err) {
