@@ -1,4 +1,5 @@
 import { FaUserCircle } from "react-icons/fa";
+import PropTypes from "prop-types";
 
 const ResponsiveMenu = ({ showMenu }) => {
   return (
@@ -39,6 +40,10 @@ const ResponsiveMenu = ({ showMenu }) => {
       </div>
     </>
   );
+};
+
+ResponsiveMenu.propTypes = {
+  showMenu: PropTypes.bool.isRequired,
 };
 
 export default ResponsiveMenu;
