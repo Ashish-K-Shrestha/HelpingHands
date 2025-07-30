@@ -9,9 +9,9 @@ const VideoBanner = () => {
             <iframe
               src="https://www.youtube.com/embed/4TxnFEK-E0k"
               title="YouTube video player"
-              frameborder="0"
+              frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerpolicy="strict-origin-when-cross-origin"
+              referrerPolicy="strict-origin-when-cross-origin"
               allowfullscreen
               className="aspect-video w-full"
             ></iframe>
