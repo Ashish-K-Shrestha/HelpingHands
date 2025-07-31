@@ -7,27 +7,21 @@ const BlogData = [
   {
     img: Img1,
     title:
-      "No one has ever become poor from giving.” – Anne Frank · “The only way to do grea",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. amet consectetur adipisicing elit.",
+      "Lifting Lives: The Power of Helping the Needy in a Hurting World",
     date: "April 22, 2024",
     writer: "John",
   },
   {
     img: Img2,
     title:
-      "No one has ever become poor from giving.” – Anne Frank · “The only way to do grea",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. amet consectetur adipisicing elit.",
+      "Kindness in Action: Why Supporting the Less Fortunate Matters More Than Ever",
     date: "Jan 22, 2024",
     writer: "Anonymous",
   },
   {
     img: Img3,
     title:
-      "No one has ever become poor from giving.” – Anne Frank · “The only way to do grea",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. amet consectetur adipisicing elit.",
+      "Be the Difference: How Small Acts of Help Create Big Waves of Change",
     date: "April 22, 2022",
     writer: "Frank",
   },
@@ -45,7 +39,6 @@ const Blogs = () => {
               key={blog.title}
               img={blog.img}
               title={blog.title}
-              description={blog.description}
               date={blog.date}
               writer={blog.writer}
             />

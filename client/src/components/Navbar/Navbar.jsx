@@ -9,13 +9,12 @@ const Navbar = () => {
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
   );
   const [showMenu, setShowMenu] = useState(false);
-  const element = document.documentElement;
-
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
 
   useEffect(() => {
+    const element = document.documentElement;
     if (theme === "dark") {
       element.classList.add("dark");
       localStorage.setItem("theme", "dark");

@@ -1,6 +1,6 @@
-import axios from "axios";
+import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
 import { motion } from "framer-motion";
-import React from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import HeroImg from "../../assets/image2.jpeg";
 
@@ -12,21 +12,17 @@ const bgStyle = {
   width: "100%",
 };
 
-const FadeUp = (delay) => {
-  return {
-    initial: { opacity: 0, y: 100 },
-    animate: { opacity: 1, y: 0, transition: { duration: 0.6, delay, ease: "easeInOut" } },
-  };
-};
-
-
+const FadeUp = (delay) => ({
+  initial: { opacity: 0, y: 100 },
+  animate: { opacity: 1, y: 0, transition: { duration: 0.6, delay, ease: "easeInOut" } },
+});
 
 const Hero = () => {
   const navigate = useNavigate();
-  const [data, setData] = React.useState({
+  const [data, setData] = useState({
     name: "",
     email: "",
-    amount: 1,  // Defaulting to 1 to prevent empty payments
+    amount: 10, // Default donation
   });
 
   const handleClick = (e) => {
@@ -37,32 +33,12 @@ const Hero = () => {
     }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      // Backend POST request
-      const res = await axios.post("https://unityfund.onrender.com/api/v1/checkout", {
-        amount: parseInt(data.amount),
-      });
-
-      const paymentUrl = res.data?.result?.url; // Assuming backend returns { result: { url: '...' } }
-      if (paymentUrl) {
-        window.location.href = paymentUrl; // Redirect user to Cryptomus payment page
-      } else {
-        alert("Failed to retrieve payment URL. Please try again.");
-      }
-    } catch (err) {
-      console.error("Payment initiation error:", err);
-      alert("Something went wrong. Please try again later.");
-    }
-  };
-
   return (
     <div style={bgStyle}>
       <div className="min-h-[650px] md:min-h-[750px] bg-gradient-to-r from-black/80 to-primary/60 pt-32 pb-10 md:pt-48">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-12 text-white">
+
             {/* Hero Text */}
             <div className="flex flex-col items-center text-center gap-5 lg:items-start lg:text-left lg:max-w-[450px]">
               <motion.h1 variants={FadeUp(0.2)} initial="initial" animate="animate" className="text-5xl lg:text-7xl font-bold">
@@ -72,18 +48,25 @@ const Hero = () => {
                 Your small contribution can make a big difference.
               </motion.p>
               <div className="space-x-4">
-                <motion.button variants={FadeUp(0.6)} initial="initial" animate="animate" className="btn-primary">
+                <motion.button
+                  variants={FadeUp(0.6)}
+                  initial="initial"
+                  animate="animate"
+                  className="btn-primary"
+                  onClick={() => navigate("/banner")}
+                >
                   Get Started
                 </motion.button>
-               <motion.button
-  variants={FadeUp(0.8)}
-  initial="initial"
-  animate="animate"
-  className="btn-outline"
-  onClick={() => navigate("/login")}
->
-  Login
-</motion.button>
+
+                <motion.button
+                  variants={FadeUp(0.8)}
+                  initial="initial"
+                  animate="animate"
+                  className="btn-outline"
+                  onClick={() => navigate("/login")}
+                >
+                  Login
+                </motion.button>
               </div>
             </div>
 
@@ -103,7 +86,7 @@ const Hero = () => {
                       onClick={() => setData({ ...data, amount: amt })}
                       className="button-square"
                     >
-                      ${amt.toString().padStart(2, '0')}
+                      ${amt.toString().padStart(2, "0")}
                     </button>
                   ))}
                 </div>
@@ -133,15 +116,33 @@ const Hero = () => {
                     placeholder="Email"
                     className="w-full border dark:border-gray-800 px-4 py-2 rounded-lg dark:bg-black"
                   />
-                  <button
-                    className="btn-primary w-full rounded-full"
-                    onClick={handleSubmit}
-                  >
-                    Donate Now
-                  </button>
+
+                  {/* PayPal Buttons */}
+                  <PayPalScriptProvider options={{ "client-id": "AVLqkjGW8FCI6m59SUB1lndaSF28VE2lnvQPOprb6CxpRhBpVmdhYuYMFxejNwc5S3Nrq8bOUqy__h6V", currency: "USD" }}>
+                    <PayPalButtons
+                      style={{ layout: "vertical" }}
+                      createOrder={async () => {
+                        const response = await fetch("http://localhost:8091/api/payment/create-order", {
+                          method: "POST",
+                          headers: { "Content-Type": "application/json" },
+                          body: JSON.stringify({ amount: data.amount }),
+                        });
+                        const order = await response.json();
+                        return order.id;
+                      }}
+                      onApprove={async (data) => {
+                        const response = await fetch(`http://localhost:8091/api/payment/capture-order/${data.orderID}`, {
+                          method: "POST",
+                        });
+                        const details = await response.json();
+                        alert(`Thank you, ${details.payer.name.given_name}, for your donation of $${data.amount}!`);
+                      }}
+                    />
+                  </PayPalScriptProvider>
                 </div>
               </div>
             </motion.div>
+
           </div>
         </div>
       </div>

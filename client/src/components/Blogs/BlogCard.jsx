@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const BlogCard = ({ img, title, description, date, writer }) => {
+const BlogCard = ({ img, title, date, writer }) => {
   return (
     <div className="p-4 shadow-lg transition-all duration-500 hover:shadow-xl dark:bg-slate-950 dark:text-white">
       <div className="overflow-hidden">
@@ -16,7 +16,6 @@ const BlogCard = ({ img, title, description, date, writer }) => {
       </div>
       <div className="space-y-2 py-3">
         <h1 className="line-clamp-1 font-bold">{title}</h1>
-        <p className="line-clamp-2 text-sm">{description}</p>
       </div>
     </div>
   );
@@ -25,7 +24,6 @@ const BlogCard = ({ img, title, description, date, writer }) => {
 BlogCard.propTypes = {
   img: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   writer: PropTypes.string.isRequired,
   // Add other props here as needed

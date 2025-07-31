@@ -1,5 +1,10 @@
 
+
+import { useNavigate } from "react-router-dom";
+
 const VideoBanner = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="bg-primary">
       <div className="container py-8 md:py-16">
@@ -12,7 +17,7 @@ const VideoBanner = () => {
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               referrerPolicy="strict-origin-when-cross-origin"
-              allowfullscreen
+              allowFullScreen
               className="aspect-video w-full"
             ></iframe>
           </div>
@@ -25,7 +30,7 @@ const VideoBanner = () => {
               maxime accusantium saepe amet sed architecto illum adipisci porro
               totam qui blanditiis! Aliquam.
             </p>
-            <button className="btn-primary !bg-white !text-black">
+            <button className="btn-primary !bg-white !text-black" onClick={() => navigate("/video")}>
               Get Started
             </button>
           </div>

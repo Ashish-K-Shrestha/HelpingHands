@@ -1,20 +1,25 @@
-require("dotenv").config();
+const dotenv = require("dotenv");
+const paymentRoutes = require("./src/api/paymentRoutes");
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const authRoutes = require("./src/routes/authRoutes"); // fix path if needed
 
+dotenv.config(); // Load environment variables
 const app = express();
 
 // Middleware
-app.use(cors({
-  origin: "http://localhost:5173",
-  credentials: true,
-}));
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 app.use(express.json()); // Must come before routes
 
 // Routes
 app.use("/api", authRoutes);
+app.use("/api/payment", paymentRoutes);
 
 // Root route (optional)
 app.get("/", (req, res) => {

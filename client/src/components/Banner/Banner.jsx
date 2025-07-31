@@ -1,6 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import Image2 from "../../assets/blogs/blog4.jpeg";
 
+
 const Banner = () => {
+  const navigate = useNavigate();
   return (
     <div className="bg-slate-100 dark:bg-slate-900 dark:text-white">
       <div className="container md:h-[500px] flex items-center justify-center py-10">
@@ -20,17 +23,16 @@ const Banner = () => {
             </h1>
             <ul className="flex list-inside list-disc flex-col gap-2 md:gap-4">
               <li className="font-medium">
-                Always give without remembering and always receive without
-                forgetting
+                True humanity shines brightest when we extend our hands to those in need.
               </li>
               <li className="font-medium">
-                Giving does not only precede receiving; it is the reason for it.
+                Giving isn’t about how much you have it’s about how deeply you care.
               </li>
               <li className="font-medium">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                By helping the needy, we become the reason someone believes in goodness again.
               </li>
             </ul>
-            <button className="btn-primary">Get Started</button>
+            <button className="btn-primary" onClick={() => navigate("/video")}>Get Started</button>
           </div>
         </div>
       </div>
